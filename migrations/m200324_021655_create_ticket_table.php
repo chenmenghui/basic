@@ -14,10 +14,10 @@ class m200324_021655_create_ticket_table extends Migration
     {
         $this->createTable('{{%ticket}}', [
             'id'          => $this->primaryKey(),
-            'rs'          => $this->integer()->notNull()->defaultValue(0)->comment('rs id'),
+            'rs'          => $this->integer()->comment('rs id'),
             'comment'     => $this->text()->comment('comment'),
-            'add_time'    => $this->dateTime()->notNull()->defaultValue('0000-01-01 00:00:00'),
-            'update_time' => $this->dateTime()->notNull()->defaultValue('0000-01-01 00:00:00'),
+            'add_time'    => $this->dateTime(),
+            'update_time' => $this->dateTime(),
             'delete_time' => $this->dateTime(),
         ]);
     }

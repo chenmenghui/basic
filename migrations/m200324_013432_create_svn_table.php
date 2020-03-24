@@ -14,16 +14,16 @@ class m200324_013432_create_svn_table extends Migration
     {
         $this->createTable('{{%svn}}', [
             'id'             => $this->primaryKey(),
-            'code'           => $this->integer()->notNull()->defaultValue(0)->comment('svn code'),
-            'server'         => $this->tinyInteger()->notNull()->defaultValue(0)->comment('server: dev 0, dev2 1, rc 2'),
-            'rs'             => $this->integer()->notNull()->defaultValue(0)->comment('rs id'),
-            'patch'          => $this->integer()->notNull()->defaultValue(0)->comment('patch id'),
-            'jenkins_status' => $this->tinyInteger()->notNull()->defaultValue(0)->comment('the status in jenkins: 0 commit to svn, 1 update in jenkins, 2 deploy to server'),
+            'code'           => $this->integer()->comment('svn code'),
+            'rs'             => $this->integer()->comment('rs id'),
+            'patch'          => $this->integer()->comment('patch id'),
+            'server'         => $this->string()->comment('代码所属服务器，dev、dev2等'),
+            'jenkins_status' => $this->string()->comment('the status in jenkins: 0 commit to svn, 1 update in jenkins, 2 deploy to server'),
             'comment'        => $this->text()->comment('comment'),
-            'author'         => $this->string()->notNull()->defaultValue('valenchen'),
-            'add_time'       => $this->dateTime()->notNull()->defaultValue('0000-01-01 00:00:00'),
-            'update_time'    => $this->dateTime()->notNull()->defaultValue('0000-01-01 00:00:00'),
-            'delete_time'    => $this->dateTime()->defaultValue(null),
+            'author'         => $this->string()->comment('作者'),
+            'add_time'       => $this->dateTime(),
+            'update_time'    => $this->dateTime(),
+            'delete_time'    => $this->dateTime(),
         ]);
     }
 
