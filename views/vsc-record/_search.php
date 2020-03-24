@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SvnSearch */
+/* @var $model app\models\VscRecordSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="svn-search">
+<div class="vsc-record-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,21 +17,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'code') ?>
-
-    <?= $form->field($model, 'server') ?>
+    <?= $form->field($model, 'revision') ?>
 
     <?= $form->field($model, 'rs') ?>
 
-    <?= $form->field($model, 'patch') ?>
+    <?= $form->field($model, 'ticket') ?>
+
+    <?= $form->field($model, 'server') ?>
 
     <?php // echo $form->field($model, 'jenkins_status') ?>
 
-    <?php // echo $form->field($model, 'comment') ?>
+    <?php // echo $form->field($model, 'next_id') ?>
 
     <?php // echo $form->field($model, 'author') ?>
 
-    <?php // echo $form->field($model, 'add_time') ?>
+    <?php // echo $form->field($model, 'message') ?>
+
+    <?php // echo $form->field($model, 'comment') ?>
+
+    <?php // echo $form->field($model, 'create_time') ?>
 
     <?php // echo $form->field($model, 'update_time') ?>
 

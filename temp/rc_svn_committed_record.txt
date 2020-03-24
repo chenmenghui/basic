@@ -1,6 +1,6 @@
 Revision: 417723
 Author: rt.valenchen
-Date: 2020Äê3ÔÂ3ÈÕ ÐÇÆÚ¶þ 21:31:07
+Date: 2020å¹´3æœˆ3æ—¥ æ˜ŸæœŸäºŒ 21:31:07
 Message:
 RET #115 ALM - TBM (generic) Upload template not complete
 ITCM820566
@@ -10,7 +10,7 @@ Modified : /rc/core/web/sharp/modules/importexcel/views/scripts/maintenancesched
 
 Revision: 417015
 Author: rt.valenchen
-Date: 2020Äê3ÔÂ3ÈÕ ÐÇÆÚ¶þ 9:09:28
+Date: 2020å¹´3æœˆ3æ—¥ æ˜ŸæœŸäºŒ 9:09:28
 Message:
 RET #115 ALM - TBM (generic) Upload template not complete
 ITCM820566
@@ -23,7 +23,7 @@ Modified : /rc/core/web/sharp/modules/importexcel/views/scripts/maintenancesched
 
 Revision: 409327
 Author: rt.valenchen
-Date: 2020Äê2ÔÂ18ÈÕ ÐÇÆÚ¶þ 17:02:37
+Date: 2020å¹´2æœˆ18æ—¥ æ˜ŸæœŸäºŒ 17:02:37
 Message:
 EA RET - Maintenance Schedule Planning (TBM) Development
 ITCM813723
@@ -33,7 +33,7 @@ Modified : /rc/core/web/service/runchecker.php
 
 Revision: 392290
 Author: rt.valenchen
-Date: 2019Äê12ÔÂ24ÈÕ ÐÇÆÚ¶þ 11:06:30
+Date: 2019å¹´12æœˆ24æ—¥ æ˜ŸæœŸäºŒ 11:06:30
 Message:
 RET Maintenance Generic Logic Design
 ITCM800082

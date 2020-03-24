@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Svn */
+/* @var $model app\models\VscRecord */
 
-$this->title = 'Create Svn';
-$this->params['breadcrumbs'][] = ['label' => 'Svns', 'url' => ['index']];
+$this->title = 'Create Vsc Record';
+$this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="svn-create">
+<div class="vsc-record-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

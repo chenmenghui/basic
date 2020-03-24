@@ -45,8 +45,8 @@ class VcsController extends Controller
             'revision' => '/Revision: (?<value>\d*)/',
             'author'   => '/Author: (?<value>\S*)/',
             'date'     => '/Date: (?<value>\S*)/',
-            'message'  => '/Message:\n(?<value>(.|(\n\r)|\r|\n)*?)----/',
-            'path'     => '/(?<value>(Added|Modified|Deleted) : (.*((\n\r)|\r|\n)+)*?)\n/',
+            'message'  => '/Message:\n(?<value>(.|(\r\n)|\r|\n)*?)----/',
+            'path'     => '/(?<value>(Modified|Added|Deleted) :(.|\n|\r|\r\n)*?)\n\n/',
         ];
         $content = file_get_contents($filePath);
         $n = 0;
@@ -60,7 +60,5 @@ class VcsController extends Controller
             unset($match);
             $n = 0;
         }
-
-        file_put_contents('test.php', var_export($result, 1));
     }
 }

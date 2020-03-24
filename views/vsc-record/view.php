@@ -4,42 +4,42 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Svn */
+/* @var $model app\models\VscRecord */
 
-$this->title = 'Update Svn: ' . $model->comment ?: $model->id;
-$this->title = strlen($this->title < 50 ?: substr($this->title, 0, 50) . '...');
-$this->params['breadcrumbs'][] = ['label' => 'Svns', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="svn-view">
+<div class="vsc-record-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create', ['create'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
-            'data'  => [
+            'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
-                'method'  => 'post',
+                'method' => 'post',
             ],
         ]) ?>
     </p>
 
     <?= DetailView::widget([
-        'model'      => $model,
+        'model' => $model,
         'attributes' => [
             'id',
-            'code',
-            'server',
+            'revision',
             'rs',
-            'patch',
+            'ticket',
+            'server',
             'jenkins_status',
-            'comment:ntext',
+            'next_id',
             'author',
-            'add_time',
+            'message:ntext',
+            'comment:ntext',
+            'create_time',
             'update_time',
             'delete_time',
         ],

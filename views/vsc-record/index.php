@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\SvnSearch */
+/* @var $searchModel app\models\VscRecordSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Svns';
+$this->title = 'Vsc Records';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="svn-index">
+<div class="vsc-record-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Svn', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vsc Record', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,15 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
-            'code',
-            'server',
+            'id',
+            'revision',
             'rs',
-            'patch',
-            'jenkins_status',
-            'comment:ntext',
+            'ticket',
+            'server',
+            //'jenkins_status',
+            //'next_id',
             //'author',
-            //'add_time',
+            //'message:ntext',
+            //'comment:ntext',
+            //'create_time',
             //'update_time',
             //'delete_time',
 

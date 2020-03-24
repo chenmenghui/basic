@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Svn;
+use app\models\VscRecord;
 
 /**
- * SvnSearch represents the model behind the search form of `app\models\Svn`.
+ * VscRecordSearch represents the model behind the search form of `app\models\VscRecord`.
  */
-class SvnSearch extends Svn
+class VscRecordSearch extends VscRecord
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class SvnSearch extends Svn
     public function rules()
     {
         return [
-            [['id', 'code', 'rs', 'patch', 'jenkins_status'], 'integer'],
-            [['server'], 'string'],
-            [['comment', 'author', 'add_time', 'update_time', 'delete_time'], 'safe'],
+            [['id', 'revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'integer'],
+            [['author', 'message', 'comment', 'create_time', 'update_time', 'delete_time'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class SvnSearch extends Svn
      */
     public function search($params)
     {
-        $query = Svn::find();
+        $query = VscRecord::find();
 
         // add conditions that should always apply here
 
@@ -60,18 +59,20 @@ class SvnSearch extends Svn
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'code' => $this->code,
-            'server' => $this->server,
+            'revision' => $this->revision,
             'rs' => $this->rs,
-            'patch' => $this->patch,
+            'ticket' => $this->ticket,
+            'server' => $this->server,
             'jenkins_status' => $this->jenkins_status,
-            'add_time' => $this->add_time,
+            'next_id' => $this->next_id,
+            'create_time' => $this->create_time,
             'update_time' => $this->update_time,
             'delete_time' => $this->delete_time,
         ]);
 
-        $query->andFilterWhere(['like', 'comment', $this->comment])
-            ->andFilterWhere(['like', 'author', $this->author]);
+        $query->andFilterWhere(['like', 'author', $this->author])
+            ->andFilterWhere(['like', 'message', $this->message])
+            ->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }
