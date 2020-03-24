@@ -1,0 +1,270 @@
+Revision: 426600
+Author: rt.valenchen
+Date: 2020年3月17日 星期二 14:44:24
+Message:
+RET #219 ALM - Maintenance Planning Review - wrong planned hours
+ITCM829255
+REF T12191
+----
+Modified : /dev2/core/sys/libs/bizlogic.lib
+Modified : /dev2/core/web/sharp/modules/Mrsr/models/Review.php
+Modified : /dev2/core/web/sharp/modules/Mrsr/controllers/ReviewController.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/dao/MaintenanceSetEvolutionDao.php
+
+Revision: 419720
+Author: rt.valenchen
+Date: 2020年3月6日 星期五 14:46:26
+Message:
+Some static catalogue to RET
+ITCM812171
+REF T11761
+----
+Added : /dev2/core/db_change_script/ITCM812171_RET_add_staticcatalogue_v2_allcenter.sql (Copy from path: /preview/core/db_change_script/ITCM812171_RET_add_staticcatalogue_v2_allcenter.sql, Revision, 419678)
+Added : /dev2/core/db_change_script/ITCM812171_RET_add_staticcatalogue_v2_globalea.sql (Copy from path: /preview/core/db_change_script/ITCM812171_RET_add_staticcatalogue_v2_globalea.sql, Revision, 419678)
+
+Revision: 417386
+Author: rt.valenchen
+Date: 2020年3月3日 星期二 15:00:29
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+static catalogue
+----
+Added : /dev2/core/db_change_script/ITCM820566_add_staticcatalogue_allcenter.sql (Copy from path: /preview/core/db_change_script/ITCM820566_add_staticcatalogue_allcenter.sql, Revision, 417348)
+Modified : /dev2/core/web/sharp/modules/importexcel/views/scripts/maintenanceschedule/index.phtml
+
+Revision: 416732
+Author: rt.valenchen
+Date: 2020年3月2日 星期一 15:34:37
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+Refactor code
+----
+Modified : /dev2/core/web/sharp/modules/importexcel/views/scripts/maintenanceschedule/index.phtml
+Deleted : /dev2/core/web/sharp/application/common/temp/genericmaintenanceschedule.xls
+Added : /dev2/core/web/sharp/application/common/temp/maintenanceschedule_generic.xls (Copy from path: /dev2/core/web/sharp/application/common/temp/genericmaintenanceschedule.xls, Revision, 416731)
+Modified : /dev2/core/web/sharp/modules/importexcel/models/Maintenanceschedule.php
+
+Revision: 415049
+Author: rt.valenchen
+Date: 2020年2月28日 星期五 9:01:57
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+Modify the xls file
+----
+Modified : /dev2/core/web/sharp/application/common/temp/genericmaintenanceschedule.xls
+
+Revision: 411638
+Author: rt.valenchen
+Date: 2020年2月21日 星期五 19:47:08
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+Update error message
+----
+Modified : /dev2/core/web/sharp/modules/importexcel/models/Maintenanceschedule.php
+
+Revision: 411629
+Author: rt.valenchen
+Date: 2020年2月21日 星期五 18:47:39
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+----
+Modified : /dev2/core/web/sharp/application/common/temp/genericmaintenanceschedule.xls
+Modified : /dev2/core/web/sharp/modules/importexcel/models/Maintenanceschedule.php
+
+Revision: 411593
+Author: rt.valenchen
+Date: 2020年2月21日 星期五 17:39:14
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+----
+Modified : /dev2/core/web/sharp/modules/importexcel/views/scripts/maintenanceschedule/index.phtml
+Added : /dev2/core/web/sharp/application/common/temp/genericmaintenanceschedule.xls
+Modified : /dev2/core/web/sharp/modules/importexcel/models/Maintenanceschedule.php
+Modified : /dev2/core/web/sharp/modules/importexcel/controllers/MaintenancescheduleController.php
+
+Revision: 406486
+Author: rt.valenchen
+Date: 2020年2月11日 星期二 16:43:01
+Message:
+EA RET - Maintenance Schedule Planning (TBM) Development
+ITCM813723
+REF T11791
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+
+Revision: 406188
+Author: rt.valenchen
+Date: 2020年2月11日 星期二 8:59:47
+Message:
+EA RET - Maintenance Schedule Planning (TBM) Development
+ITCM813723
+REF T11791
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+Added : /dev2/core/db_change_script/ITCM813723_add_staticcatalogue_allcenter.sql (Copy from path: /preview/core/db_change_script/ITCM813723_add_staticcatalogue_allcenter.sql, Revision, 406184)
+
+Revision: 403325
+Author: rt.valenchen
+Date: 2020年1月18日 星期六 13:08:04
+Message:
+EA RET - Maintenance Schedule Planning (TBM) Development
+ITCM813723
+REF T11791
+Fix 'Run Summary Review'
+----
+Modified : /dev2/core/web/service/runchecker.php
+
+Revision: 394149
+Author: rt.valenchen
+Date: 2019年12月27日 星期五 11:42:02
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/web/temp_php_script/tbm/ita_auto_maintenance_schedule.php
+
+Revision: 391715
+Author: rt.valenchen
+Date: 2019年12月23日 星期一 14:53:26
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+
+Revision: 391704
+Author: rt.valenchen
+Date: 2019年12月23日 星期一 14:41:12
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/dao/WorkloadDao.php
+
+Revision: 391130
+Author: rt.valenchen
+Date: 2019年12月20日 星期五 15:08:28
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/web/sharp/modules/Mrsr/views/scripts/workloadservice/_schedule_info.phtml
+
+Revision: 390315
+Author: rt.valenchen
+Date: 2019年12月19日 星期四 9:18:42
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/dao/WorkloadDao.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/service/WorkloadService.php
+
+Revision: 389459
+Author: rt.valenchen
+Date: 2019年12月17日 星期二 15:03:18
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483
+REF T10710
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+
+Revision: 388988
+Author: rt.valenchen
+Date: 2019年12月16日 星期一 17:10:47
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+
+Revision: 387754
+Author: rt.valenchen
+Date: 2019年12月12日 星期四 17:37:25
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483
+REF T10710
+----
+Modified : /dev2/core/web/sharp/modules/Mrsr/views/scripts/workloadservice/_schedule_info.phtml
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/dao/WorkloadDao.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/service/WorkloadService.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/service/WorkloadBaseService.php
+Modified : /dev2/core/web/sharp/modules/Mrsr/controllers/WorkloadserviceController.php
+
+Revision: 387273
+Author: rt.valenchen
+Date: 2019年12月12日 星期四 9:48:45
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483
+REF T10710
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+
+Revision: 386853
+Author: rt.valenchen
+Date: 2019年12月11日 星期三 11:34:23
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483
+REF T10710
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+
+Revision: 385433
+Author: rt.valenchen
+Date: 2019年12月9日 星期一 11:15:50
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483
+REF T10710
+----
+Added : /dev2/core/db_change_script/RT_20191206_ITCM_742483
+Added : /dev2/core/db_change_script/RT_20191206_ITCM_742483/script
+Added : /dev2/core/db_change_script/RT_20191206_ITCM_742483/script/alert_allcountry.sql
+Added : /dev2/core/db_change_script/RT_20191206_ITCM_742483/script/permission_allcenter.sql
+Added : /dev2/core/db_change_script/RT_20191206_ITCM_742483/script/systemsetting_allcountry.sql
+
+Revision: 385412
+Author: rt.valenchen
+Date: 2019年12月9日 星期一 10:55:00
+Message:
+RET Maintenance Generic Logic Design
+ITCM742483 
+REF T10710
+----
+Modified : /dev2/core/web/service/maintenanceschedule_edit.php
+Modified : /dev2/core/web/service/maintenanceschedule_new.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/dao/WorkloadDao.php
+Modified : /dev2/core/sys/libs/logic/maintenance_scheduling/service/WorkloadBaseService.php
+Modified : /dev2/core/web/sharp/modules/Mrsr/controllers/WorkloadserviceController.php
+Modified : /dev2/core/web/service/maintenancesetevolution.php
+Modified : /dev2/core/web/service/maintenancesetevolution_edit.php
+Modified : /dev2/core/web/sharp/modules/Mrsr/views/scripts/workloadservice/workloadlist.phtml
