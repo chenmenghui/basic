@@ -14,17 +14,26 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'code')->textInput() ?>
 
-    <?= $form->field($model, 'jenkins_status')->radioList(['dev'=>'dev', 'dev2' => 'dev2', 'rc' => 'rc']) ?>
+    <?= $form->field($model, 'server')->radioList([
+        'dev'  => 'dev',
+        'dev2' => 'dev2',
+        'rc'   => 'rc',
+        'live' => 'live',
+    ]) ?>
 
     <?= $form->field($model, 'rs')->textInput() ?>
 
     <?= $form->field($model, 'patch')->textInput() ?>
 
-    <?= $form->field($model, 'jenkins_status')->radioList(['commit'=>'Commit to SVN', 'update' => 'Update in Jenkins', 'deploy' => 'Deploy to server']) ?>
+    <?= $form->field($model, 'jenkins_status')->radioList([
+        'committed' => 'Committed to SVN',
+        'deployed'  => 'Deployed to server',
+        'upgraded'  => 'Goto next step',
+    ]) ?>
 
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'author')->textInput(['maxlength' => true, 'placeholder'=>'valenchen']) ?>
+    <?= $form->field($model, 'author')->textInput(['maxlength' => true, 'placeholder' => 'valenchen']) ?>
 
     <?= $form->field($model, 'add_time')->textInput() ?>
 

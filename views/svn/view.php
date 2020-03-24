@@ -6,7 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Svn */
 
-$this->title = $model->id;
+$this->title = 'Update Svn: ' . $model->comment ?: $model->id;
+$this->title = strlen($this->title < 50 ?: substr($this->title, 0, 50) . '...');
 $this->params['breadcrumbs'][] = ['label' => 'Svns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -20,15 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
-            'data' => [
+            'data'  => [
                 'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+                'method'  => 'post',
             ],
         ]) ?>
     </p>
 
     <?= DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             'id',
             'code',

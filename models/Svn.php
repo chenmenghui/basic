@@ -37,9 +37,9 @@ class Svn extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'rs', 'patch', 'jenkins_status'], 'integer'],
-            [['comment'], 'string'],
-            [['add_time', 'update_time', 'delete_time'], 'safe'],
+            [['code', 'rs', 'patch'], 'integer'],
+            [['comment', 'jenkins_status'], 'string'],
+            [['add_time', 'update_time', 'delete_time', 'server'], 'safe'],
             [['author', 'server'], 'string', 'max' => 255],
         ];
     }
