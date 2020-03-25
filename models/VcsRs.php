@@ -17,6 +17,7 @@ use Yii;
 class VcsRs extends \yii\db\ActiveRecord
 {
     use base;
+
     /**
      * {@inheritdoc}
      */
@@ -45,9 +46,9 @@ class VcsRs extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'code' => 'Code',
-            'remark' => 'Remark',
+            'id'          => 'ID',
+            'code'        => 'Code',
+            'remark'      => 'Remark',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'delete_time' => 'Delete Time',

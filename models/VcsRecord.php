@@ -43,7 +43,7 @@ class VcsRecord extends ActiveRecord
             [['message', 'remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['author'], 'string', 'max' => 255],
-            ['author', 'default', 'value' => 'valenchen'],
+            [['author'], 'default', 'value' => 'valenchen'],
             [['rs', 'ticket', 'server', 'jenkins_status', 'next_revision'], 'default', 'value' => 0],
         ];
     }
@@ -63,13 +63,13 @@ class VcsRecord extends ActiveRecord
             'next_revision'  => 'Next Revision',
             'author'         => 'Author',
             'message'        => 'Message',
-            'remark'        => 'Remark',
+            'remark'         => 'Remark',
             'create_time'    => 'Create Time',
             'update_time'    => 'Update Time',
             'delete_time'    => 'Delete Time',
         ];
     }
-    
+
     public function serverConstant()
     {
 

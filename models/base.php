@@ -18,7 +18,7 @@ trait base
             [
                 'class'      => TimestampBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['add_time', 'update_time'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],
                 ],
                 'value'      => date('Y-m-d H:i:s'),
