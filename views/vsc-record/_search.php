@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'jenkins_status') ?>
 
-    <?php // echo $form->field($model, 'next_id') ?>
+    <?php // echo $form->field($model, 'next_revision') ?>
 
     <?php // echo $form->field($model, 'author') ?>
 

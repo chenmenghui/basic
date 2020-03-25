@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'jenkins_status')->textInput() ?>
 
-    <?= $form->field($model, 'next_id')->textInput() ?>
+    <?= $form->field($model, 'next_revision')->textInput() ?>
 
     <?= $form->field($model, 'author')->textInput(['maxlength' => true]) ?>
 

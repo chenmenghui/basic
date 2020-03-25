@@ -7,7 +7,7 @@ namespace app\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
-trait base
+class base extends ActiveRecord
 {
     /**
      * {@inheritdoc}

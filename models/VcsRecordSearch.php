@@ -17,7 +17,7 @@ class VcsRecordSearch extends VcsRecord
     public function rules()
     {
         return [
-            [['id', 'revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'integer'],
+            [['id', 'revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_revision'], 'integer'],
             [['author', 'message', 'comment', 'create_time', 'update_time', 'delete_time'], 'safe'],
         ];
     }
@@ -64,7 +64,7 @@ class VcsRecordSearch extends VcsRecord
             'ticket' => $this->ticket,
             'server' => $this->server,
             'jenkins_status' => $this->jenkins_status,
-            'next_id' => $this->next_id,
+            'next_revision' => $this->next_revision,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
             'delete_time' => $this->delete_time,

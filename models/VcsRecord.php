@@ -14,15 +14,15 @@ use yii\db\ActiveRecord;
  * @property int $ticket ticket id
  * @property int $server server: 1 dev, 2 dev2, 3 rc, 4 life
  * @property int $jenkins_status the status in jenkins: 0 committed to vcs, 1 updated in jenkins, 2 deployed to server, 3 submitted in next step
- * @property int $next_id the vsc id of next step
+ * @property int $next_revision the vsc id of next step
  * @property string $author
  * @property string|null $message vcs message
- * @property string|null $comment additional info
  * @property string $create_time
  * @property string $update_time
  * @property string|null $delete_time
+ * @property string $remark
  */
-class VcsRecord extends ActiveRecord
+class VcsRecord extends base
 {
     /**
      * {@inheritdoc}
@@ -39,7 +39,7 @@ class VcsRecord extends ActiveRecord
     {
         return [
             [['revision'], 'required'],
-            [['revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'integer'],
+            [['revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_revision'], 'integer'],
             [['message', 'remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['author'], 'string', 'max' => 255],

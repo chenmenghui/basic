@@ -4,6 +4,7 @@
 namespace app\commands;
 
 
+use common\components\StringTool;
 use Yii;
 use app\models\VcsRecord;
 use yii\console\Controller;
@@ -50,8 +51,9 @@ class VcsController extends Controller
             'revision' => '/Revision: (?<value>\d*)/',
             'author'   => '/Author: (?<value>\S*)/',
             'date'     => '/Date: (?<value>\S*)/',
-            'message'  => '/Message:\n(?<value>(\s|\S)*?)----/',
-            'path'     => '/(?<value>(Modified|Added|Deleted) :(\s|\S)*?)\n\n/',
+            'message'  => '/Message:\s(?<value>(\s|\S)*?)----/',
+            'path'     => '/(?<value>(Modified|Added|Deleted) :(\s|\S)*?)(\s){2}/'
+            // There affect by EOL, eg 'CRLF' is (\s){4}, 'LF' is (\s){2}
         ];
 
         $content = file_get_contents($filePath);
@@ -78,20 +80,16 @@ class VcsController extends Controller
         // }
         // $model->load();
 
-        $getRs = function ($param) {
-            preg_match('/REF T(?<value>\d+)/', $param, $match);
-            return $match['value'];
-        };
-        $getTicket = function ($param) {
-            preg_match('/ITCM(?<value>\d+)/', $param, $match);
-            return $match['value'];
-        };
-
         foreach ($result as $item) {
             $recordRow = [
                 'revision' => $item['revision'],
-                'rs'       => $getRs[$item['message']],
+                'rs'       => StringTool::pregGetter('/REF T(?<value>\d+)/', $item['message']),
+                'ticket'   => StringTool::pregGetter('/ITCM(?<value>\d+)/', $item['message']),
+                'message'  => $item['message'],
+                'server'   => 1,
             ];
+            var_dump($model->load($recordRow));
+            // $model->save();
         }
     }
 }

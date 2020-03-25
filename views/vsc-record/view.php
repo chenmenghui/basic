@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'ticket',
             'server',
             'jenkins_status',
-            'next_id',
+            'next_revision',
             'author',
             'message:ntext',
             'comment:ntext',
