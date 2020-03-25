@@ -88,8 +88,11 @@ class VcsController extends Controller
                 'message'  => $item['message'],
                 'server'   => 1,
             ];
-            var_dump($model->load($recordRow));
-            // $model->save();
+            // var_dump($model->load($recordRow));
+            foreach ($recordRow as $key => $item) {
+                $model->$key = $item;
+            }
+            $model->save();
         }
     }
 }
