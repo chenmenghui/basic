@@ -36,11 +36,14 @@ class VcsController extends Controller
             __DIR__ . '/../temp/rc_svn_committed_record.txt',
         ];
         foreach ($filePath as $item) {
-            $this->translateAndSave($item);
+            $this->getDataFromFile($item);
         }
     }
 
-    private function translateAndSave($filePath)
+    /**
+     * @param $filePath
+     */
+    private function getDataFromFile($filePath)
     {
         $result = [];
         $pattern = [
@@ -50,11 +53,11 @@ class VcsController extends Controller
             'message'  => '/Message:\n(?<value>(\s|\S)*?)----/',
             'path'     => '/(?<value>(Modified|Added|Deleted) :(\s|\S)*?)\n\n/',
         ];
+
         $content = file_get_contents($filePath);
         $n = 0;
         foreach ($pattern as $key => $item) {
             preg_match_all($item, $content, $match, PREG_SET_ORDER);
-
             foreach ($match as $matchItem) {
                 $result[$n][$key] = $matchItem['value'];
                 $n++;
@@ -62,6 +65,7 @@ class VcsController extends Controller
             unset($match);
             $n = 0;
         }
+
         $this->save($result);
     }
 
@@ -73,6 +77,21 @@ class VcsController extends Controller
         //
         // }
         // $model->load();
-        file_put_contents(__DIR__ . '/../temp/test.txt', var_export($result, 1));
+
+        $getRs = function ($param) {
+            preg_match('/REF T(?<value>\d+)/', $param, $match);
+            return $match['value'];
+        };
+        $getTicket = function ($param) {
+            preg_match('/ITCM(?<value>\d+)/', $param, $match);
+            return $match['value'];
+        };
+
+        foreach ($result as $item) {
+            $recordRow = [
+                'revision' => $item['revision'],
+                'rs'       => $getRs[$item['message']],
+            ];
+        }
     }
 }
