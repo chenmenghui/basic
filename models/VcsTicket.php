@@ -32,7 +32,7 @@ class VcsTicket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'create_time', 'update_time'], 'required'],
+            [['code'], 'required'],
             [['code'], 'integer'],
             [['remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],

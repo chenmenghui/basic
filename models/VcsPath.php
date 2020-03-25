@@ -32,7 +32,7 @@ class VcsPath extends ActiveRecord
     public function rules()
     {
         return [
-            [['record_id', 'path', 'create_time', 'update_time'], 'required'],
+            [['record_id', 'path'], 'required'],
             [['record_id'], 'integer'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['path'], 'string', 'max' => 255],

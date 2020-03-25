@@ -38,7 +38,7 @@ class VcsRecord extends ActiveRecord
     public function rules()
     {
         return [
-            [['revision', 'create_time', 'update_time'], 'required'],
+            [['revision'], 'required'],
             [['revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'integer'],
             [['message', 'remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
