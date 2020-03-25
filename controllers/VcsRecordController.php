@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\VscRecord;
-use app\models\VscRecordSearch;
+use app\models\VcsRecord;
+use app\models\VcsRecordSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * VscRecordController implements the CRUD actions for VscRecord model.
  */
-class VscRecordController extends Controller
+class VcsRecordController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,7 +35,7 @@ class VscRecordController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new VscRecordSearch();
+        $searchModel = new VcsRecordSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +64,7 @@ class VscRecordController extends Controller
      */
     public function actionCreate()
     {
-        $model = new VscRecord();
+        $model = new VcsRecord();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,12 +113,12 @@ class VscRecordController extends Controller
      * Finds the VscRecord model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VscRecord the loaded model
+     * @return VcsRecord the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = VscRecord::findOne($id)) !== null) {
+        if (($model = VcsRecord::findOne($id)) !== null) {
             return $model;
         }
 

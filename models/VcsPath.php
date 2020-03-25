@@ -16,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property string $update_time
  * @property string|null $delete_time
  */
-class VcsPath extends \yii\db\ActiveRecord
+class VcsPath extends ActiveRecord
 {
     /**
      * {@inheritdoc}

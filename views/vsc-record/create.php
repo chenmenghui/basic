@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\VscRecord */
+/* @var $model app\models\VcsRecord */
 
 $this->title = 'Create Vsc Record';
 $this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];

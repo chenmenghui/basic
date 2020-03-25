@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\VscRecord;
+use app\models\VcsRecord;
 
 /**
  * VscRecordSearch represents the model behind the search form of `app\models\VscRecord`.
  */
-class VscRecordSearch extends VscRecord
+class VcsRecordSearch extends VcsRecord
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class VscRecordSearch extends VscRecord
      */
     public function search($params)
     {
-        $query = VscRecord::find();
+        $query = VcsRecord::find();
 
         // add conditions that should always apply here
 

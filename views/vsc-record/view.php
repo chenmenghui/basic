@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\VscRecord */
+/* @var $model app\models\VcsRecord */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "vsc_record".
@@ -21,7 +22,7 @@ use Yii;
  * @property string $update_time
  * @property string|null $delete_time
  */
-class VscRecord extends \yii\db\ActiveRecord
+class VcsRecord extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -39,11 +40,11 @@ class VscRecord extends \yii\db\ActiveRecord
         return [
             [['revision', 'create_time', 'update_time'], 'required'],
             [['revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'integer'],
-            [['message', 'comment'], 'string'],
+            [['message', 'remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['author'], 'string', 'max' => 255],
             ['author', 'default', 'value' => 'valenchen'],
-            [['rs', 'ticket', 'server', 'jenkins_status', 'next_id'], 'default', 'value' => 0],
+            [['rs', 'ticket', 'server', 'jenkins_status', 'next_revision'], 'default', 'value' => 0],
         ];
     }
 
@@ -59,13 +60,18 @@ class VscRecord extends \yii\db\ActiveRecord
             'ticket'         => 'Ticket',
             'server'         => 'Server',
             'jenkins_status' => 'Jenkins Status',
-            'next_id'        => 'Next ID',
+            'next_revision'  => 'Next Revision',
             'author'         => 'Author',
             'message'        => 'Message',
-            'comment'        => 'Comment',
+            'remark'        => 'Remark',
             'create_time'    => 'Create Time',
             'update_time'    => 'Update Time',
             'delete_time'    => 'Delete Time',
         ];
+    }
+    
+    public function serverConstant()
+    {
+
     }
 }
