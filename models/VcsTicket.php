@@ -36,6 +36,7 @@ class VcsTicket extends \yii\db\ActiveRecord
             [['code'], 'integer'],
             [['remark'], 'string'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
+            [['code'], 'unique'],
         ];
     }
 
