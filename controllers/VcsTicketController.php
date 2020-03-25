@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\VcsRs;
-use app\models\VcsRsSearch;
+use app\models\VcsTicket;
+use app\models\VcsTicketSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VcsRsController implements the CRUD actions for VcsRs model.
+ * VcsTicketController implements the CRUD actions for VcsTicket model.
  */
-class VcsRsController extends Controller
+class VcsTicketController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class VcsRsController extends Controller
     {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -30,22 +30,22 @@ class VcsRsController extends Controller
     }
 
     /**
-     * Lists all VcsRs models.
+     * Lists all VcsTicket models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VcsRsSearch();
+        $searchModel = new VcsTicketSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel'  => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single VcsRs model.
+     * Displays a single VcsTicket model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,25 +58,27 @@ class VcsRsController extends Controller
     }
 
     /**
-     * Creates a new VcsRs model.
+     * Creates a new VcsTicket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new VcsRs();
+        $model = new VcsTicket();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $model->create_time = time();
+        $model->update_time = time();
         return $this->render('create', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Updates an existing VcsRs model.
+     * Updates an existing VcsTicket model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +98,7 @@ class VcsRsController extends Controller
     }
 
     /**
-     * Deletes an existing VcsRs model.
+     * Deletes an existing VcsTicket model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +112,15 @@ class VcsRsController extends Controller
     }
 
     /**
-     * Finds the VcsRs model based on its primary key value.
+     * Finds the VcsTicket model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VcsRs the loaded model
+     * @return VcsTicket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = VcsRs::findOne($id)) !== null) {
+        if (($model = VcsTicket::findOne($id)) !== null) {
             return $model;
         }
 

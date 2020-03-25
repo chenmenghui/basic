@@ -4,26 +4,26 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\VcsRsSearch */
+/* @var $searchModel app\models\VcsTicketSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Vcs Rs';
+$this->title = 'Vcs Tickets';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vcs-rs-index">
+<div class="vcs-ticket-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Vcs Rs', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vcs Ticket', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel'  => $searchModel,
-        'columns'      => [
+        'filterModel' => $searchModel,
+        'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',

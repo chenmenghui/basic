@@ -29,7 +29,7 @@ class VcsRecord extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'vsc_record';
+        return '{{%vcs_record}}';
     }
 
     /**
@@ -68,10 +68,5 @@ class VcsRecord extends ActiveRecord
             'update_time'    => 'Update Time',
             'delete_time'    => 'Delete Time',
         ];
-    }
-
-    public function serverConstant()
-    {
-
     }
 }
