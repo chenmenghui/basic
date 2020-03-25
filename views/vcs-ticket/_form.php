@@ -16,10 +16,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'remark')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'create_time')->textInput(['readonly' => 'readonly']) ?>
-
-    <?= $form->field($model, 'update_time')->textInput(['readonly' => 'readonly']) ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

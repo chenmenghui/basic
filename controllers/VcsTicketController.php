@@ -70,8 +70,6 @@ class VcsTicketController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $model->create_time = time();
-        $model->update_time = time();
         return $this->render('create', [
             'model' => $model,
         ]);
