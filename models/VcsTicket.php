@@ -16,6 +16,8 @@ use Yii;
  */
 class VcsTicket extends \yii\db\ActiveRecord
 {
+    use base;
+
     /**
      * {@inheritdoc}
      */

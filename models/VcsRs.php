@@ -16,6 +16,8 @@ use Yii;
  */
 class VcsRs extends \yii\db\ActiveRecord
 {
+    use base;
+
     /**
      * {@inheritdoc}
      */
