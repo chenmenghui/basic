@@ -16,7 +16,7 @@ class m200325_014418_create_vcs_rs extends Migration
     {
         $this->createTable($this->tableName, [
             'id'          => $this->primaryKey(),
-            'code'        => $this->integer()->notNull()->comment('RS ID'),
+            'code'        => $this->integer()->notNull()->unique()->comment('RS ID'),
             'remark'      => $this->text(),
             'create_time' => $this->dateTime()->notNull(),
             'update_time' => $this->dateTime()->notNull(),

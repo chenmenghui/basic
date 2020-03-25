@@ -16,7 +16,7 @@ class m200325_014424_create_vcs_ticket extends Migration
     {
         $this->createTable($this->tableName, [
             'id'          => $this->primaryKey(),
-            'code'        => $this->integer()->notNull()->comment('ticket number'),
+            'code'        => $this->integer()->notNull()->unique()->comment('ticket number'),
             'remark'      => $this->text(),
             'create_time' => $this->dateTime()->notNull(),
             'update_time' => $this->dateTime()->notNull(),
