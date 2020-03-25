@@ -39,22 +39,24 @@ class VcsController extends Controller
                 'path'   => __DIR__ . '/../temp/dev2_svn_committed_record.txt',
             ],
         ];
-        foreach ($target as $item) {
-            $this->filePath = $item['path'];
-            $this->server = $item['server'];
-            $this->getDataFromFile();
 
-            try {
-                $transaction = Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            foreach ($target as $item) {
+                $this->filePath = $item['path'];
+                $this->server = $item['server'];
+                $this->initData();
+
                 foreach ($this->data as $item) {
                     $this->data = $item;
                     $this->save();
                 }
 
                 $transaction->commit();
-            } catch (Exception $exception) {
-                $transaction->rollBack();
+
             }
+        } catch (Exception $exception) {
+            $transaction->rollBack();
         }
         return ExitCode::OK;
     }
@@ -62,7 +64,7 @@ class VcsController extends Controller
     /**
      * @param $filePath
      */
-    private function getDataFromFile()
+    private function initData()
     {
         $data = [];
         $pattern = [
