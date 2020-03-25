@@ -1,0 +1,10 @@
+@startuml
+fork
+:core/sys/bin/cron_job_onetime_to_maintenance_required_report.php:33;
+:\MaintenanceRequiredReportService::loadMaintenanceRequiredReportData;
+fork again
+:core/sys/bin/cron_job_to_maintenance_required_report.php:29;
+:\MaintenanceRequiredReportService::loadMaintenanceRequiredReportDataForLastMonth;
+end fork
+:\MaintenanceRequiredReportDAO::getMaintenanceRequiredReportData;
+@enduml

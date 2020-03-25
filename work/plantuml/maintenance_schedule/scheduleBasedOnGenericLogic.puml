@@ -1,0 +1,18 @@
+@startuml
+start
+:\WorkloadService::scheduleBasedOnGenericLogic;
+:\WorkloadBaseService::_initUnit;
+:$_threshold = \WorkloadBaseService::_countWorkload<
+:$aUnitList = \WorkloadBaseService::_handleSameBuildingUnit<
+:$arrangeRes = array()<
+while ($aUnitList as $value)
+    if (canArrange) then (yes)
+        :$arrangeRes[] = \MaintenanceGenericService::arrangeUnit|
+    else (no)
+        :$arrangeRes[] = \WorkloadService::_arrangeLockedUnit|
+    endif
+endwhile
+:$arrangeRes/
+stop
+@enduml
+

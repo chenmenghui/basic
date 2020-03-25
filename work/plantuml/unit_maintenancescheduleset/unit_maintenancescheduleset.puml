@@ -1,0 +1,360 @@
+@setenv PLANTUML_LIMIT_SIZE 8192
+@startuml
+
+''''unit_maintenancescheduleset包含的字段
+
+'UnitID
+'MaintenanceScheduleID
+'FromDate
+'Cached_ToDate
+'IsLocked
+'HighlightCode
+'Comment
+'IsFromSchedulingTool Is this row is from the France style scheduling tool.
+
+start
+
+note
+
+end note
+
+fork
+    fork
+        :core/web/common/addunit_confirm.php:189;
+    fork again
+        :core/web/common/building_confirm.php:379;
+    fork again
+        :core/web/service/unit_upload_in_mass.php:829;
+    fork again
+        :core/web/common/unitdata_edit.php:1149;
+    end fork
+    :\AMSP_Units::setMaintSchGroup;
+    :\AMSP_Units::changeMaintSchGrp;
+fork again
+    fork
+        fork
+            :\Mrsr_RununitsequenceController::resetunitsequenceAction;
+        fork again
+            :\Mrsr_RununitsequenceController::workloadAction -> initdata;
+        fork again
+            :\Mrsr_RununitsequenceController::workloadAction -> loadunit;
+        end fork
+        :\AMSP_Units::resetByRun;
+    fork again
+    end fork
+    :\AMSP_Units::resetAUnit;
+fork again
+    fork
+    :\Mrsr_RununitsequenceController::savemaintenancescheduleAction;
+    fork again
+    :\Mrsr_RununitsequenceController::lockarrangeAction;
+    floating note
+        法国
+    end note
+    end fork
+    :\AMSP_Units::saveArrangedData;
+fork again
+    fork
+        :\Mrsr_WorkloadserviceController::savemaintenancescheduleAction;
+    fork again
+        :\Mrsr_WorkloadserviceController::lockarrangeAction;
+    end fork
+    :\AMSP_Units::saveArrangedResultData;
+end fork
+
+
+:\AMSP_Units::setMaintSch(细节见下)|
+stop
+
+start
+partition \AMSP_Units::setMaintSch的细节 {
+    :\AMSP_Units::setMaintSch;
+
+    partition \AMSP_Units::maintSchSegTidy {
+        :\AMSP_Units::maintSchSegTidy;
+
+        :\AMSP_Units::maintSchSegRefresh;
+
+        partition note {
+            note right
+                get segments related to this year,
+                plus the 1st second of next year
+            end note
+
+            :$relSegsArr = array()<
+            :$resultArr = \AMSP_Units::maintSchSegFetchRelated;
+            note
+                 Get related record of a unit and a time
+                  range in the table unit_maintenancescheduleset.
+            end note
+            while ($resultArr as $reg)
+                if ($seg['FromDate']) then (yes)
+                    :$relSegsArr[$seg['FromDate']] = (bool) $reg['IsFromSchedulingTool'];
+                else (null)
+                    -[dashed]->
+                endif
+            endwhile (empty)
+        }
+
+        :$needRefresh = false<
+
+        partition note {
+            note right
+                if no record at all
+            end note
+            if (!$relSegsArr) then (yes)
+                #pink:\AMSP_Units::maintSchSegInsert;
+                :$needRefresh = true<
+            else (no)
+                -[dashed]->
+            endif
+        }
+
+
+        partition note {
+            note right
+                if lack the end point of this year
+            end note
+            if (!isset($relSegsArr[$nextYearFirstDt])) then (yes)
+                :$theSeg = \AMSP_Units::maintSchSegFetchBetween;
+                #pink:\AMSP_Units::maintSchSegInsert;
+                note left
+                    [
+                        "UnitID" => $unitId,
+                        "MaintenanceScheduleID" => $theSeg->MaintenanceScheduleID,
+                        "FromDate" => $nextYearFirstDt,
+                        "Cached_ToDate" => $globalLastDt,
+                        "IsFromSchedulingTool" => 0,
+                    ]
+                end note
+                :$needRefresh = true<
+            else
+                -[dashed]->
+            endif
+        }
+
+        partition note {
+            note right
+                if lack the start point of this year
+            end note
+            if (!isset($relSegsArr[$firstDt])) then (yes)
+                #pink:\AMSP_Units::maintSchSegInsert;
+                note left
+                    [
+                        "UnitID" => $unitId,
+                        "MaintenanceScheduleID" => 0,
+                        "FromDate" => $firstDt,
+                        "Cached_ToDate" => $lastDt,
+                        "IsFromSchedulingTool" => 0,
+                    ]
+                end note
+                :$needRefresh = true<
+            else (no)
+                -[dashed]->
+            endif
+        }
+
+        if ($needRefresh)
+            #pink:\AMSP_Units::maintSchSegRefresh;
+        else (no)
+            -[dashed]->
+        endif
+
+        partition note {
+            note right
+                get segments in this year
+            end note
+            :$segsThisYearArr = array()<
+            :$flagInAllExBegin = 1<
+            :$resultArr = \AMSP_Units::maintSchSegFetchInRange4Year;
+            :\AMSP_Units::maintSchSegFetchInRange]
+            while ($resultArr as $seg)
+                :$fromDate = $seg['FromDate'] <
+                :$flag =$seg['IsFromSchedulingTool'] <
+                if ($fromDate) then (yes)
+                    :$segsThisYearArr[$fromDate] = $flag <
+                    if ($firstDt != $fromDate)
+                        :$flagInAllExBegin &= $flag>
+                    else (no)
+                         -[dashed]->
+                    endif
+                else (no)
+                    -[dashed]->
+                endif
+            endwhile (empty)
+        }
+
+        partition note {
+            note right
+                if there is any segment without flag,
+                excluding the beginning segment
+                <b>then remove</b>
+            end note
+            if (!$flagInAllExBegin) then (yes)
+                while($segsThisYearArr as $fromDate => $flag)
+                    if (!$flag && $firstDt != $fromDate)
+                        #pink:\AMSP_Units::maintSchSegRemove;
+                    else (no)
+                        -[dashed]->
+                    endif
+                endwhile (empty)
+                #pink:\AMSP_Units::maintSchSegRefresh;
+            endif
+        }
+
+
+        partition \AMSP_Units::maintSchSegMergeNeighbour {
+
+            note right
+                In a year for a unit,
+                if there are adjacent segments with the same maintenance
+                schedule set in the table unit_maintenancescheduleset,
+                merge these adjacent segments.
+            end note
+            :\AMSP_Units::maintSchSegMergeNeighbour;
+
+            :$segsThisYearArr = \AMSP_Units::maintSchSegFetchInRange4Year;
+            :$needRefresh = false<
+            while ($cnt = count($segsThisYearArr))
+                :$cnt--<
+                #pink:\AMSP_Units::maintSchSegRemove;
+                #pink:\AMSP_Units::maintSchSegUpdate;
+                :$needRefresh = true<
+            endwhile ($cnt <= 1)
+
+            if ($needRefresh) then (true)
+                #pink:\AMSP_Units::maintSchSegRefresh;
+            else (false)
+                -[dashed]->
+            endif
+        }
+    }
+
+    'partition \AMSP_Units::maintSchSegFetchInRange4Year {
+    '    :\AMSP_Units::maintSchSegFetchInRange4Year;
+    '    :\AMSP_Units::maintSchSegFetchInRange;
+    '}
+
+    :$segsArr = \AMSP_Units::maintSchSegFetchInRange4Year<
+    if (count($segsArr)) then (yes)
+    else (no)
+        -[dashed]->
+        end
+    endif
+
+    :$isFirstSegAlreadyThere = true<
+    note
+        first segment must has flag
+    end note
+    if (!$segsArr[0]['IsFromSchedulingTool']) then (yes)
+        #pink:\AMSP_Units::maintSchSegUpdate;
+        :$isFirstSegAlreadyThere = false<
+        note
+            later, update the new first segment directly
+        end note
+    else
+        -[dashed]->
+    endif
+
+    if (ifdef('MAINT_CHECKBOX_MAINT_SCH_GOV') || ifdef('MAINT_CHECKBOX_MAINT_SCH_FRE')) then (yes)
+        :$actDate = \AMSP_Units::_getUnitScheduleSetActiveDate<
+    else (no)
+        :$actDate = \AMSP_Units::getActiveDate4ChMaintSchGrpOfAUnit<
+    endif
+
+    -><i>config data</i>;
+
+    if ($actDate) then(yes)
+        :$splitData = $actDate<
+        note right
+            in this year, change group
+        end note
+    else (no)
+        if (!isReset) (yes)
+            if ($year == $currentYear) then (yes)
+                if (!isFirstSegAlreadyThere) (yes)
+                    :$splitData = $firstDayOfYear<
+                else (no)
+                    :$splitData = $today<
+                endif
+            else (no)
+                :$splitData = $firstDayOfYear<
+            endif
+        else (no)
+            :$splitData = $firstDayOfYear<
+            :$first = true<
+            :$needRefresh = false<
+            while ($segsArr as $seg)
+                if ($first) then (yes)
+                    :$first = false<
+                else (no)
+                    #pink:\AMSP_Units::maintSchSegRemove;
+                    :$needRefresh = true<
+                endif
+            endwhile
+            if ($needRefresh) then (yes)
+                #pink:\AMSP_Units::maintSchSegRefresh;
+            endif
+        endif
+    endif
+
+    partition (\AMSP_Units::maintSchSegSplit) {
+        :\AMSP_Units::maintSchSegSplit;
+        :$segsArr = \AMSP_Units::maintSchSegFetchInRange4Year<
+        :$needRefresh = false<
+        :$first = true<
+        while ($segsArr as $seg)
+            if ($first) then (yes)
+                :$first = false<
+            else (no)
+                if ($seg['FromDate'] > $todayDt) then (yes)
+                    #pink:\AMSP_Units::maintSchSegRemove;
+                    :$needRefresh = true<
+                endif
+            endif
+        endwhile
+        if ($needRefresh) then (yes)
+            #pink:\AMSP_Units::maintSchSegRefresh;
+        else
+            -[dashed]->
+        endif
+        :$segsArr = $this->maintSchSegFetchInRange4Year($unitId, $year)<
+        :$segsCnt = count($segsArr)<
+
+        if (condition 1) then (yes)
+            note #white
+                condition 1: (!$isGrpCh && $segsCnt >= 1 && !$segsArr[$segsCnt - 1]['MaintenanceScheduleID'])
+                not change group, and last segment has maint set 0
+            end note
+        elseif (condition 2) then (yes)
+            note #white
+                condition 2: ($segsCnt >= 1 && $segsArr[$segsCnt - 1]['FromDate'] == $fromDt)
+                is the spliting point already there
+            end note
+        else
+            #pink:\AMSP_Units::maintSchSegInsert;
+            #pink:\AMSP_Units::maintSchSegRefresh;
+        endif
+    }
+
+
+    #pink:\AMSP_Units::maintSchSegUpdate;
+
+    :\AMSP_Units::maintSchSegTidy;
+    note #red
+       <i>repeated, skip detail</i>
+    end note
+
+    if (!$isNotResetUnitView) then (yes)
+        :\AMSP_Units::setMaintSchToUnitView;
+        note
+            sync to unit view
+        end note
+    else
+        -[dashed]->
+    endif
+}
+
+stop
+
+@enduml

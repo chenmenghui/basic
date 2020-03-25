@@ -1,0 +1,14 @@
+@startuml
+start
+:\MaintenanceGenericService::arrangeUnit;
+:\MaintenanceGenericBaseService::_initUnit;
+:\MaintenanceGenericService::_initTimeRange;
+:\MaintenanceGenericBaseService::_initScheduleSet;
+:\MaintenanceGenericService::_handleUnitSavedScheduleData;
+if ($bEnableArrange) then (yes)
+
+else
+
+endif
+stop
+@enduml

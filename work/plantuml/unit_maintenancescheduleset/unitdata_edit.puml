@@ -1,0 +1,122 @@
+@startuml
+
+start
+
+:根据$_request['unitid']获取unit数据,<i>不存在则跳转到报错页面</i>;
+
+if (isset($_REQUEST['op']) && (strtolower(trim($_REQUEST["op"])) == "save" || strtolower(trim($_REQUEST["op"])) == "save as new version")) then (yes)
+    :各种验证及填充数据（$saveunitdata）|
+    if (strtolower(trim($_REQUEST["op"])) == "save as new version") then (yes)
+        if (clonerow($db, "unit_history", $saveunitdata, "id = {$unit->id} AND Cached_ToDate IS NULL") !== FALSE) then (yes)
+            :$old_maintenancescheduleid = $unit->MaintenanceScheduleID<
+            while ($saveunitdata as $ukey => $udata)
+                if (strtolower($ukey) === 'maintenancescheduleid') then (yes)
+                    #red:操作细节#1|
+                else
+                    -[dashed]->
+                endif
+            endwhile
+        else (no)
+            -[dashed]->
+        endif
+    else
+        if (ifdef('MAINT_CHECKBOX_ENABLE_MAINT_SCH_GROUP')) then (yes)
+            :$maintGrpInfo = \AMSP_Units::getMaintSchGroup($_REQUEST['unitid'])<
+            if ($maintGrpInfo['maintSchGroupId'] != $_REQUEST["frm_maintenanceschedulegroupid"]) then (yes)
+                #pink:\AMSP_Units::setMaintSchGroup;
+                note
+                    $_REQUEST['unitid'], $_REQUEST["frm_maintenanceschedulegroupid"]
+                end note
+            else
+                -[dashed]->
+            endif
+        else
+            -[dashed]->
+        endif
+        
+        :其他操作|
+        
+        if (更新unit成功) then (yes)
+            :其他操作|
+            while ($saveunitdata as $ukey => $udata)
+                if (strtolower($ukey) === 'maintenancescheduleid') then (yes)
+                    #red:操作细节#1|
+                    :其他操作|
+                else
+                    -[dashed,#green]->
+                    :其他条件及其操作|
+                    -[dashed,#green]->
+                endif
+            endwhile
+        else (no)
+            -[dashed]->
+        endif
+    endif
+endif
+
+:其他操作|
+
+stop
+
+start
+partition (操作细节#1) {
+    :$new_maintenancescheduleid = $udata;<
+    if($new_maintenancescheduleid != $old_maintenancescheduleid) then (yes)
+        if ($new_maintenancescheduleid 存在且不为空) then (yes)
+            if ($old_maintenancescheduleid 存在且不为空) then (yes)
+                if (!$db->get("SELECT UnitID FROM unit_maintenancescheduleset WHERE UnitID = $unit->id")->UnitID) then (yes)
+                    #pink:插入;
+                    note
+                        "UnitID"                => $unit->id,
+                        "FromDate"              => "'1990-01-01 00:00:01'",
+                        "MaintenanceScheduleID" => $old_maintenancescheduleid,
+                        "Cached_ToDate"         => "'9999-12-31 23:59:59'",
+                    end note
+                else (no)
+                    -[dashed]->
+                endif
+            else
+                -[dashed]->
+            endif
+            #pink:插入;
+            note
+                "UnitID"                => $unit->id,
+                "FromDate"              => $BRANCHNOW,
+                "MaintenanceScheduleID" => $new_maintenancescheduleid,
+            end note
+            #pink:refreshUnitScheduleSetDateCache;
+            :其他操作|
+        else (no)
+            #pink:清楚数据;
+            note
+                "{$BRANCHNOW} BETWEEN FromDate AND
+                Cached_ToDate AND UnitID = {$unit->id}"
+            end note
+        endif
+    else (no)
+        -[dashed]->
+    endif
+}
+stop
+
+start
+partition (refreshUnitScheduleSetDateCache的细节) {
+:$UnitID/
+:SET @lastdate := '9999-12-31 23:59:59';
+
+:UPDATE `unit_maintenancescheduleset`
+SET Cached_ToDate = @lastdate,
+    FromDate      = (@lastdate := (FromDate - INTERVAL 1 SECOND)) + INTERVAL 1 SECOND
+WHERE UnitID = <b>:$UnitID</b>
+ORDER BY FromDate DESC;
+
+:SELECT MAX(FromDate) AS FromDate FROM unit_maintenancescheduleset WHERE UnitID = <b>:$unitID</b>;
+
+:UPDATE `unit_maintenancescheduleset`
+SET Cached_ToDate = '9999-12-31 23:59:59'
+WHERE UnitID = <b>:$UnitID</b>
+  AND FromDate = <b>MAX(FromDate)</b>;
+}
+stop
+
+@enduml
