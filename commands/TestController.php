@@ -4,6 +4,7 @@
 namespace app\commands;
 
 
+use common\components\StringTool;
 use yii\console\Controller;
 
 class TestController extends Controller
@@ -15,8 +16,6 @@ EA RET - Maintenance Schedule Planning (TBM) Development
 ITCM813723
 REF T11791
 S;
-        preg_match('/REF T(?<value>\d+)/', $str, $match);
-        print_r($match['value']);
-
+        echo StringTool::pregGetter('/REF T(?<value>\d+)/', $str);
     }
 }
