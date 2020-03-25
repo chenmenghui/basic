@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VscRecordController implements the CRUD actions for VscRecord model.
+ * VcsRecordController implements the CRUD actions for VcsRecord model.
  */
 class VcsRecordController extends Controller
 {
@@ -30,7 +30,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Lists all VscRecord models.
+     * Lists all VcsRecord models.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Displays a single VscRecord model.
+     * Displays a single VcsRecord model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,7 +58,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Creates a new VscRecord model.
+     * Creates a new VcsRecord model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -76,7 +76,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Updates an existing VscRecord model.
+     * Updates an existing VcsRecord model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Deletes an existing VscRecord model.
+     * Deletes an existing VcsRecord model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,7 +110,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Finds the VscRecord model based on its primary key value.
+     * Finds the VcsRecord model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return VcsRecord the loaded model

@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "vcs_path".
  *
  * @property int $id
- * @property int $record_id
+ * @property int $revision
  * @property string $path
  * @property string $create_time
  * @property string $update_time
@@ -32,8 +32,8 @@ class VcsPath extends ActiveRecord
     public function rules()
     {
         return [
-            [['record_id', 'path'], 'required'],
-            [['record_id'], 'integer'],
+            [['revision', 'path'], 'required'],
+            [['revision'], 'integer'],
             [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['path'], 'string', 'max' => 255],
         ];
@@ -63,7 +63,7 @@ class VcsPath extends ActiveRecord
     {
         return [
             'id'          => 'ID',
-            'record_id'   => 'Record ID',
+            'revision'   => 'Revision',
             'path'        => 'Path',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',

@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="vsc-record-form">
+<div class="vcs-record-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'message')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'remark')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 

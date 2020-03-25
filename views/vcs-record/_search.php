@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="vsc-record-search">
+<div class="vcs-record-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'message') ?>
 
-    <?php // echo $form->field($model, 'comment') ?>
+    <?php // echo $form->field($model, 'remark') ?>
 
     <?php // echo $form->field($model, 'create_time') ?>
 

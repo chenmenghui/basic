@@ -14,14 +14,16 @@ class m200325_014418_create_vcs_rs extends Migration
      */
     public function safeUp()
     {
-        $this->createTable($this->tableName, [
-            'id'          => $this->primaryKey(),
-            'code'        => $this->integer()->notNull()->unique()->comment('RS ID'),
-            'remark'      => $this->text(),
-            'create_time' => $this->dateTime()->notNull(),
-            'update_time' => $this->dateTime()->notNull(),
-            'delete_time' => $this->dateTime(),
-        ]);
+        $this->createTable($this->tableName,
+            [
+                'id'          => $this->primaryKey(),
+                'code'        => $this->integer()->notNull()->unique()->comment('RS ID'),
+                'remark'      => $this->text(),
+                'create_time' => $this->dateTime()->notNull(),
+                'update_time' => $this->dateTime()->notNull(),
+                'delete_time' => $this->dateTime(),
+            ],
+            'ENGINE=InnoDB DEFAULT CHARSET=utf8');
     }
 
     /**

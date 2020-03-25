@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\VcsRecord;
 
 /**
- * VcsRecordSearch represents the model behind the search form of `app\models\VcsRecord`.
+ * VcsRecordController represents the model behind the search form of `app\models\VcsRecord`.
  */
-class VcsRecordSearch extends VcsRecord
+class VcsRecordController extends VcsRecord
 {
     /**
      * {@inheritdoc}

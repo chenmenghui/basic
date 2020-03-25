@@ -7,11 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\VcsRecord */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Vcs Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="vsc-record-view">
+<div class="vcs-record-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'next_revision',
             'author',
             'message:ntext',
-            'comment:ntext',
+            'remark:ntext',
             'create_time',
             'update_time',
             'delete_time',

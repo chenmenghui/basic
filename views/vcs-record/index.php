@@ -7,15 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\VcsRecordSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Vsc Records';
+$this->title = 'Vcs Records';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vsc-record-index">
+<div class="vcs-record-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Vsc Record', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vcs Record', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'next_revision',
             //'author',
             //'message:ntext',
-            //'comment:ntext',
+            //'remark:ntext',
             //'create_time',
             //'update_time',
             //'delete_time',

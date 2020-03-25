@@ -12,14 +12,17 @@ class m200325_010332_create_vcs_path extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%vcs_path}}', [
-            'id'          => $this->primaryKey(),
-            'revision'    => $this->integer()->notNull(),
-            'path'        => $this->string()->notNull(),
-            'create_time' => $this->dateTime()->notNull(),
-            'update_time' => $this->dateTime()->notNull(),
-            'delete_time' => $this->dateTime(),
-        ]);
+        $this->createTable('{{%vcs_path}}',
+            [
+                'id'          => $this->primaryKey(),
+                'revision'    => $this->integer()->notNull(),
+                'path'        => $this->string()->notNull(),
+                'create_time' => $this->dateTime()->notNull(),
+                'update_time' => $this->dateTime()->notNull(),
+                'delete_time' => $this->dateTime(),
+            ],
+            'ENGINE=InnoDB DEFAULT CHARSET=utf8'
+        );
     }
 
     /**

@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\VcsRecord */
 
-$this->title = 'Update Vsc Record: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Vsc Records', 'url' => ['index']];
+$this->title = 'Update Vcs Record: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Vcs Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="vsc-record-update">
+<div class="vcs-record-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

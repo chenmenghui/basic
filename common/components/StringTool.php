@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components;
+namespace app\common\components;
 
 
 class StringTool
