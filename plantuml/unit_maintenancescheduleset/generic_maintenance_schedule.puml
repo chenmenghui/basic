@@ -1,0 +1,27 @@
+@startuml
+start
+floating note #aqua
+Generic Maintenance Schedule
+end note
+:initdataGeneric/
+:\WorkloadService::scheduleBasedOnGenericLogic;
+:\MaintenanceGenericService::arrangeUnit;
+:各种类型的schedule;
+:\MaintenanceGenericBaseService::addScheduleComment;
+note
+     在组装的unit数组对象中添加
+     「comment」和「heightLightCode」
+end note
+fork
+:SAVE/
+:\Mrsr_WorkloadserviceController::savemaintenancescheduleAction;
+fork again
+:\Mrsr_WorkloadserviceController::lockarrangeAction;
+end fork
+:\Mrsr_WorkloadserviceController::savemaintenancescheduleAction;
+:\AMSP_Units::saveArrangedResultData;
+note #red
+    repeated, skip detail
+end note
+stop
+@enduml

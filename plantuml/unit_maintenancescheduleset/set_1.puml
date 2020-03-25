@@ -1,0 +1,16 @@
+@startuml
+start
+fork
+:core/web/service/maintenanceschedule_edit.php:30;
+fork again
+:core/web/service/maintenanceschedule_edit.php:954;
+fork again
+:core/web/service/maintenanceschedulesequence_edit.php:24;
+end fork
+->这三个地方，都是和开关「MAINT_CHECKBOX_ENABLE_MAINT_SCH_GROUP」有关;
+:\AMSP_MaintSch::isMaintSchUsed;
+note
+    Check whether the maint schedule is used by units.
+end note
+end
+@enduml

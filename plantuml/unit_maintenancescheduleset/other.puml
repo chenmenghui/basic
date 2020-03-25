@@ -1,0 +1,45 @@
+@startuml
+start
+note
+    编辑相关
+end note
+fork
+:core/web/service/maintenanceschedule_edit.php:30;
+fork again
+:core/web/service/maintenanceschedule_edit.php:954;
+fork again
+:core/web/service/maintenanceschedulesequence_edit.php:24;
+end fork
+->这三个地方，都是和开关「MAINT_CHECKBOX_ENABLE_MAINT_SCH_GROUP」有关;
+:\AMSP_MaintSch::isMaintSchUsed;
+note
+    Check whether the maint schedule is used by units.
+end note
+end
+
+start
+note
+    crontab 脚本
+end note
+fork
+:core/sys/bin/cron_job_onetime_to_maintenance_required_report.php:33;
+:\MaintenanceRequiredReportService::loadMaintenanceRequiredReportData;
+fork again
+:core/sys/bin/cron_job_to_maintenance_required_report.php:29;
+:\MaintenanceRequiredReportService::loadMaintenanceRequiredReportDataForLastMonth;
+end fork
+:\MaintenanceRequiredReportDAO::getMaintenanceRequiredReportData;
+end
+
+start
+note
+France project
+The To do list summary will show the units that did not assign to the AH/BH/Maintenance Run
+did not have the maintenance schedule group assigned or did not plan the visit.
+end note
+:core/web/service/supervisorscreen.php->unassignedunit;
+:\AMSP_ToDoList::getDataOnOffice;
+:\AMSP_ToDoList::searchToFutureMaintenancePlanNumber;
+end
+
+@enduml
