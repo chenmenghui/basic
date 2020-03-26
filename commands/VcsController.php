@@ -51,10 +51,9 @@ class VcsController extends Controller
                     $this->data = $item;
                     $this->save();
                 }
-
-                $transaction->commit();
-
             }
+
+            $transaction->commit();
         } catch (Exception $exception) {
             $transaction->rollBack();
         }
@@ -94,9 +93,9 @@ class VcsController extends Controller
     {
         $data = $this->data;
 
-        if (!isset($data['revision'])) {
-            return ExitCode::UNSPECIFIED_ERROR;
-        }
+        // if (!isset($data['revision'])) {
+        //     return ExitCode::UNSPECIFIED_ERROR;
+        // }
 
         $recordModel = new VcsRecord();
         $recordRow = [
@@ -110,13 +109,15 @@ class VcsController extends Controller
         $recordModel->setAttributes($recordRow);
         $recordModel->save();
 
-        $pathList = explode("\n", $data['path']);
-        foreach ($pathList as $item) {
-            $pathRow['revision'] = $data['revision'];
-            $pathRow['path'] = $item;
-            $pathModel = new VcsPath();
-            $pathModel->setAttributes($pathRow);
-            $pathModel->save();
+        if (isset($data['path'])) {
+            $pathList = explode("\n", $data['path']);
+            foreach ($pathList as $item) {
+                $pathRow['revision'] = $data['revision'];
+                $pathRow['path'] = $item;
+                $pathModel = new VcsPath();
+                $pathModel->setAttributes($pathRow);
+                $pathModel->save();
+            }
         }
 
         return ExitCode::OK;

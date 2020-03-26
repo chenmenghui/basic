@@ -1,0 +1,20 @@
+@startuml
+start
+fork
+:\Mrsr_WorkloadserviceController::workloadAction;
+fork again
+:\Mrsr_WorkloadserviceController::exportexcelAction;
+end fork
+:\WorkloadService::getWorkLoadData;
+:\WorkloadService::_countWeeklyWorkLoadsPure|
+note
+    \WorkloadService::getArrangement
+end note
+stop
+
+'start
+'partition (\WorkloadService::_countWeeklyWorkLoadsPure) {
+'    :$aList = \WorkloadService::getArrangement<
+'}
+'stop
+@enduml

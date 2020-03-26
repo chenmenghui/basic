@@ -1,0 +1,15 @@
+@startuml
+fork
+:\WorkloadService::loadSavedData;
+fork again
+:\WorkloadService::ScheduleBasedOnGovInspectionDate;
+fork again
+:\WorkloadService::scheduleBasedOnFrequency;
+fork again
+:\WorkloadService::scheduleBasedOnGenericLogic;
+end fork
+:\WorkloadBaseService::_initUnit;
+:\WorkloadDao::getUnitListByRun;
+:\MaintenanceUnitDao::getUnitInfo;
+:\MaintenanceUnitDao::getInfoBasic;
+@enduml

@@ -1,4 +1,3 @@
-@setenv PLANTUML_LIMIT_SIZE 8192
 @startuml
 
 ''''unit_maintenancescheduleset包含的字段
