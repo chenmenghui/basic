@@ -15,7 +15,7 @@ use Yii;
  * @property string $update_time
  * @property string|null $delete_time
  */
-class VcsPath extends \yii\db\ActiveRecord
+class VcsPath extends Base
 {
     /**
      * {@inheritdoc}
@@ -31,11 +31,11 @@ class VcsPath extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['revision', 'path', 'create_time', 'update_time'], 'required'],
-            [['revision'], 'integer'],
-            [['action', 'create_time', 'update_time', 'delete_time'], 'safe'],
+            [['revision', 'path', 'action'], 'required'],
+            [['revision', 'action'], 'integer'],
+            [['create_time', 'update_time', 'delete_time'], 'safe'],
             [['path'], 'string', 'max' => 255],
-            [['action'], 'default', 0],
+            [['action'], 'default', 'value' => 0],
         ];
     }
 
@@ -55,7 +55,7 @@ class VcsPath extends \yii\db\ActiveRecord
         ];
     }
 
-    public function transActive($type = null)
+    public static function transAction($type = null)
     {
         $data = [
             VcsPathConstant::ACTION_ADDED    => 'Added',

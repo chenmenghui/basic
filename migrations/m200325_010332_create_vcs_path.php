@@ -16,7 +16,7 @@ class m200325_010332_create_vcs_path extends Migration
             [
                 'id'          => $this->primaryKey(),
                 'revision'    => $this->integer()->notNull(),
-                'action'      => $this->time()->notNull()->defaultValue(0)->comment('action: 0 Added, 1 Deleted, 2 Modified'),
+                'action'      => $this->tinyInteger()->notNull()->defaultValue(0)->comment('action: 0 Added, 1 Deleted, 2 Modified'),
                 'path'        => $this->string()->notNull(),
                 'create_time' => $this->dateTime()->notNull(),
                 'update_time' => $this->dateTime()->notNull(),

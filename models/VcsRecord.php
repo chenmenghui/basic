@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property string|null $delete_time
  * @property string $remark
  */
-class VcsRecord extends base
+class VcsRecord extends Base
 {
     /**
      * {@inheritdoc}

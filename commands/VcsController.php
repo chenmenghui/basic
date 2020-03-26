@@ -8,11 +8,9 @@ use app\common\components\StringTool;
 use app\models\VcsPath;
 use Yii;
 use app\models\VcsRecord;
-use yii\base\Model;
 use yii\console\Controller;
 use yii\console\Exception;
 use yii\console\ExitCode;
-use yii\console\widgets\Table;
 
 
 /**
@@ -25,6 +23,7 @@ class VcsController extends Controller
     private $filePath = '';
     private $server = '';
     private $data;
+    private $row;
 
 
     public function actionInsert()
@@ -40,23 +39,18 @@ class VcsController extends Controller
             ],
         ];
 
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            foreach ($target as $item) {
-                $this->filePath = $item['path'];
-                $this->server = $item['server'];
-                $this->initData();
+        foreach ($target as $item) {
+            $this->filePath = $item['path'];
+            $this->server = $item['server'];
+            $this->initData();
 
-                foreach ($this->data as $item) {
-                    $this->data = $item;
-                    $this->save();
-                }
+            foreach ($this->data as $item) {
+                $this->row = $item;
+                $this->save();
             }
-
-            $transaction->commit();
-        } catch (Exception $exception) {
-            $transaction->rollBack();
         }
+
+
         return ExitCode::OK;
     }
 
@@ -76,9 +70,6 @@ class VcsController extends Controller
         fclose($handle);
     }
 
-    /**
-     * @param $filePath
-     */
     private function initData()
     {
         $data = [];
@@ -87,56 +78,91 @@ class VcsController extends Controller
             'author'   => '/Author: (?<value>\S*)/',
             'date'     => '/Date: (?<value>\S*)/',
             'message'  => '/Message:\s(?<value>(\s|\S)*?)----/',
-            // It affected by EOL, eg 'CRLF' is (\s){4}, 'LF' is (\s){2}
-            'path'     => '/(?<value>(Modified|Added|Deleted) :(\s|\S)*?)(\s){2}/',
+            'path'     => '/(?<value>(Modified|Added|Deleted) :(\s|\S)*)/', // 注意这个是贪婪模式，要不然就匹配不到东西啦
         ];
 
-        $content = file_get_contents($this->filePath);
+        $block = $this->getFromFile();
 
-        $n = 0;
-        foreach ($pattern as $key => $item) {
-            preg_match_all($item, $content, $match, PREG_SET_ORDER);
-            foreach ($match as $matchItem) {
-                $data[$n][$key] = $matchItem['value'];
-                $n++;
+        foreach ($block as $blockItem) {
+            $blockRes = [];
+            foreach ($pattern as $key => $item) {
+                $blockRes[$key] = StringTool::pregGetter($item, $blockItem);
             }
-            unset($match);
-            $n = 0;
+            $data[] = $blockRes;
         }
+
         $this->data = $data;
     }
 
     private function save()
     {
-        $data = $this->data;
+        $data = $this->row;
+        $action = array_flip(VcsPath::transAction());
+        $transaction = Yii::$app->db->beginTransaction();
 
-        // if (!isset($data['revision'])) {
-        //     return ExitCode::UNSPECIFIED_ERROR;
-        // }
+        try {
+            $recordModel = new VcsRecord();
+            $recordRow = [
+                'revision' => $data['revision'],
+                'rs'       => StringTool::pregGetter('/REF T(?<value>\d+)/', $data['message']),
+                'ticket'   => StringTool::pregGetter('/ITCM(?<value>\d+)/', $data['message']),
+                'message'  => $data['message'],
+                'server'   => $this->server,
+            ];
 
-        $recordModel = new VcsRecord();
-        $recordRow = [
-            'revision' => $data['revision'],
-            'rs'       => StringTool::pregGetter('/REF T(?<value>\d+)/', $data['message']),
-            'ticket'   => StringTool::pregGetter('/ITCM(?<value>\d+)/', $data['message']),
-            'message'  => $data['message'],
-            'server'   => $this->server,
-        ];
+            $recordModel->setAttributes($recordRow); // 注意，对应model中rules里没有update_time等
+            $res = $recordModel->save();
+            if (!$res) throw new Exception('Vcs Record Insert Fail');
 
-        $recordModel->setAttributes($recordRow);
-        $recordModel->save();
 
-        if (isset($data['path'])) {
-            $pathList = explode("\n", $data['path']);
-            foreach ($pathList as $item) {
-                $pathRow['revision'] = $data['revision'];
-                $pathRow['path'] = $item;
-                $pathModel = new VcsPath();
-                $pathModel->setAttributes($pathRow);
-                $pathModel->save();
+            if (isset($data['path'])) {
+                /**
+                 * 这里使用explode("\n", $data['path'])会多算一行
+                 */
+                preg_match_all('/(?<value>.+)/', $data['path'], $paths);
+                $pathList = $paths['value'];
+                unset($paths);
+
+                foreach ($pathList as $item) {
+                    $pathRow['revision'] = $data['revision'];
+                    $pathRow['path'] = StringTool::pregGetter('/: (?<value>.*)$/', $item);
+                    $actionTxt = StringTool::pregGetter('/(?<value>(Modified|Added|Deleted))/', $item);
+                    $pathRow['action'] = $action[$actionTxt];
+                    $pathModel = new VcsPath();
+                    $pathModel->setAttributes($pathRow);
+                    $res = $pathModel->save();
+                    if (!$res) throw new Exception('Vcs Path Insert Fail');
+                }
             }
+            $transaction->commit();
+        } catch (Exception $exception) {
+            $transaction->rollBack();
+            echo $exception->getMessage();
+            return ExitCode::UNSPECIFIED_ERROR;
         }
 
         return ExitCode::OK;
+    }
+
+    public function actionTest()
+    {
+        $pathRow['revision'] = 'test';
+        $pathRow['path'] = 'hello';
+        $pathRow['action'] = 'what fuck';
+        $pathModel = new VcsPath();
+        // $pathModel->setAttributes($pathRow);
+        foreach ($pathRow as $key => $item) {
+            $pathModel->$key = $item;
+        }
+        var_dump($pathModel->revision);
+        var_dump($pathModel->path);
+        var_dump($pathModel->action);
+        var_dump($pathModel->create_time);
+        var_dump($pathModel->update_time);
+        var_dump($pathModel->delete_time);
+
+        var_dump($pathModel->validate()); // 写成$pathModel->validate($pathRow)是错误的。
+
+        var_dump($pathModel->save());
     }
 }

@@ -7,7 +7,7 @@ namespace app\models;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
-class base extends ActiveRecord
+class Base extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -16,7 +16,7 @@ class base extends ActiveRecord
     {
         return [
             [
-                'class'      => TimestampBehavior::className(),
+                'class'      => TimestampBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['update_time'],

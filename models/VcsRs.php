@@ -14,10 +14,8 @@ use Yii;
  * @property string $update_time
  * @property string|null $delete_time
  */
-class VcsRs extends \yii\db\ActiveRecord
+class VcsRs extends Base
 {
-    use base;
-
     /**
      * {@inheritdoc}
      */

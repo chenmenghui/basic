@@ -15,6 +15,7 @@ class StringTool
     public static function pregGetter($pattern, $subject, $part = 'value')
     {
         preg_match($pattern, $subject, $match);
-        return $match[$part];
+        return $match[$part] ?? '';
     }
+
 }
