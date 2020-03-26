@@ -94,6 +94,11 @@ class VcsController extends Controller
         $this->data = $data;
     }
 
+    /**
+     * todo 把数据库操作已到model中
+     * @return int
+     * @throws \yii\db\Exception
+     */
     private function save()
     {
         $data = $this->row;
