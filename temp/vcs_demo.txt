@@ -1,0 +1,51 @@
+Revision: 417723
+Author: rt.valenchen
+Date: 2020年3月3日 星期二 21:31:07
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+----
+Modified : /rc/core/web/sharp/modules/importexcel/views/scripts/maintenanceschedule/index.phtml
+
+Revision: 417015
+Author: rt.valenchen
+Date: 2020年3月3日 星期二 9:09:28
+Message:
+RET #115 ALM - TBM (generic) Upload template not complete
+ITCM820566
+REF T11919
+----
+Added : /rc/core/web/sharp/application/common/temp/maintenanceschedule_generic.xls
+Modified : /rc/core/web/sharp/modules/importexcel/controllers/MaintenancescheduleController.php
+Modified : /rc/core/web/sharp/modules/importexcel/models/Maintenanceschedule.php
+Modified : /rc/core/web/sharp/modules/importexcel/views/scripts/maintenanceschedule/index.phtml
+
+Revision: 409327
+Author: rt.valenchen
+Date: 2020年2月18日 星期二 17:02:37
+Message:
+EA RET - Maintenance Schedule Planning (TBM) Development
+ITCM813723
+REF T11791
+----
+Modified : /rc/core/web/service/runchecker.php
+
+Revision: 392290
+Author: rt.valenchen
+Date: 2019年12月24日 星期二 11:06:30
+Message:
+RET Maintenance Generic Logic Design
+ITCM800082
+REF T11540
+----
+Modified : /rc/core/sys/libs/logic/maintenance_scheduling/dao/WorkloadDao.php
+Modified : /rc/core/sys/libs/logic/maintenance_scheduling/service/WorkloadBaseService.php
+Modified : /rc/core/sys/libs/logic/maintenance_scheduling/service/WorkloadService.php
+Modified : /rc/core/web/service/maintenanceschedule_edit.php
+Modified : /rc/core/web/service/maintenanceschedule_new.php
+Modified : /rc/core/web/service/maintenancesetevolution.php
+Modified : /rc/core/web/service/maintenancesetevolution_edit.php
+Modified : /rc/core/web/sharp/modules/Mrsr/controllers/WorkloadserviceController.php
+Modified : /rc/core/web/sharp/modules/Mrsr/views/scripts/workloadservice/_schedule_info.phtml
+Modified : /rc/core/web/sharp/modules/Mrsr/views/scripts/workloadservice/workloadlist.phtml

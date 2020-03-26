@@ -15,6 +15,8 @@ use yii\console\ExitCode;
 
 /**
  * This controller for vcs(svn) of company
+ *
+ * 注意，此方法只对特定格式生效。参考 /temp/vcs_demo.txt 。尤其注意最后一行必须为空行。
  * Class VcsController
  * @package app\commands
  */
