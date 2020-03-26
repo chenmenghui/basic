@@ -60,22 +60,6 @@ class VcsController extends Controller
         return ExitCode::OK;
     }
 
-    private function getFromFile()
-    {
-        $filePath = $this->filePath;
-        $handle = fopen($filePath, 'r');
-        $block = ''; // Segmented by /^\s*$/
-        while (!feof($handle)) {
-            $row = fgets($handle, 1024);
-            if (preg_match('/^\s*$/', $row)) {
-                yield $block;
-                $block = '';
-            }
-            $block .= $row;
-        }
-        fclose($handle);
-    }
-
     /**
      * @param $filePath
      */
@@ -92,7 +76,6 @@ class VcsController extends Controller
         ];
 
         $content = file_get_contents($this->filePath);
-
         $n = 0;
         foreach ($pattern as $key => $item) {
             preg_match_all($item, $content, $match, PREG_SET_ORDER);
