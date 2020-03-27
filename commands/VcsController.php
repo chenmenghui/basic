@@ -153,23 +153,7 @@ class VcsController extends Controller
 
     public function actionTest()
     {
-        $pathRow['revision'] = 'test';
-        $pathRow['path'] = 'hello';
-        $pathRow['action'] = 'what fuck';
-        $pathModel = new VcsPath();
-        // $pathModel->setAttributes($pathRow);
-        foreach ($pathRow as $key => $item) {
-            $pathModel->$key = $item;
-        }
-        var_dump($pathModel->revision);
-        var_dump($pathModel->path);
-        var_dump($pathModel->action);
-        var_dump($pathModel->create_time);
-        var_dump($pathModel->update_time);
-        var_dump($pathModel->delete_time);
-
-        var_dump($pathModel->validate()); // 写成$pathModel->validate($pathRow)是错误的。
-
-        var_dump($pathModel->save());
+        $res = VcsPath::findOne(1);
+        print_r($res->record->path);
     }
 }

@@ -14,6 +14,7 @@ use Yii;
  * @property string $create_time
  * @property string $update_time
  * @property string|null $delete_time
+ * @property VcsRecord record
  */
 class VcsPath extends Base
 {
@@ -68,5 +69,10 @@ class VcsPath extends Base
         } else {
             return $data[$type];
         }
+    }
+
+    public function getRecord()
+    {
+        return $this->hasOne(VcsRecord::class, ['revision' => 'revision']);
     }
 }

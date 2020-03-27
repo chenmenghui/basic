@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Model;
 use yii\db\ActiveRecord;
 
 /**
@@ -21,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $update_time
  * @property string|null $delete_time
  * @property string $remark
+ * @property array $path vcs_path
  */
 class VcsRecord extends Base
 {
@@ -68,5 +70,14 @@ class VcsRecord extends Base
             'update_time'    => 'Update Time',
             'delete_time'    => 'Delete Time',
         ];
+    }
+
+    /**
+     * @param Model $model
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPath(Model $model)
+    {
+        return $this->hasMany(VcsPath::class, ['revision' => 'revision']);
     }
 }
