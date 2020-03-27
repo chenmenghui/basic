@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\VcsRecordLogic */
+/* @var $model app\models\VcsPathLogic */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="vcs-record-search">
+<div class="vcs-path-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,23 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'revision') ?>
 
-    <?= $form->field($model, 'rs') ?>
+    <?= $form->field($model, 'action') ?>
 
-    <?= $form->field($model, 'ticket') ?>
+    <?= $form->field($model, 'path') ?>
 
-    <?= $form->field($model, 'server') ?>
-
-    <?php // echo $form->field($model, 'jenkins_status') ?>
-
-    <?php // echo $form->field($model, 'next_revision') ?>
-
-    <?php // echo $form->field($model, 'author') ?>
-
-    <?php // echo $form->field($model, 'message') ?>
-
-    <?php // echo $form->field($model, 'remark') ?>
-
-    <?php // echo $form->field($model, 'create_time') ?>
+    <?= $form->field($model, 'create_time') ?>
 
     <?php // echo $form->field($model, 'update_time') ?>
 

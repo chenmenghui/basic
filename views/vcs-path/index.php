@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\VcsRecordLogic */
+/* @var $searchModel app\models\VcsPathLogic */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Vcs Records';
+$this->title = 'Vcs Paths';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vcs-record-index">
+<div class="vcs-path-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Vcs Record', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vcs Path', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,15 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'revision',
-            'rs',
-            'ticket',
-            'server',
-            //'jenkins_status',
-            //'next_revision',
-            //'author',
-            //'message:ntext',
-            //'remark:ntext',
-            //'create_time',
+            'action',
+            'path',
+            // 'create_time',
             //'update_time',
             //'delete_time',
 

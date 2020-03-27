@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\VcsRecord;
+use app\models\VcsPath;
 
 /**
- * VcsRecordSearch represents the model behind the search form of `app\models\VcsRecord`.
+ * VcsPathLogic represents the model behind the search form of `app\models\VcsPath`.
  */
-class VcsRecordSearch extends VcsRecord
+class VcsPathLogic extends VcsPath
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class VcsRecordSearch extends VcsRecord
     public function rules()
     {
         return [
-            [['id', 'revision', 'rs', 'ticket', 'server', 'jenkins_status', 'next_revision'], 'integer'],
-            [['author', 'message', 'remark', 'create_time', 'update_time', 'delete_time'], 'safe'],
+            [['id', 'revision', 'action'], 'integer'],
+            [['path', 'create_time', 'update_time', 'delete_time'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class VcsRecordSearch extends VcsRecord
      */
     public function search($params)
     {
-        $query = VcsRecord::find();
+        $query = VcsPath::find();
 
         // add conditions that should always apply here
 
@@ -60,19 +60,13 @@ class VcsRecordSearch extends VcsRecord
         $query->andFilterWhere([
             'id' => $this->id,
             'revision' => $this->revision,
-            'rs' => $this->rs,
-            'ticket' => $this->ticket,
-            'server' => $this->server,
-            'jenkins_status' => $this->jenkins_status,
-            'next_revision' => $this->next_revision,
+            'action' => $this->action,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
             'delete_time' => $this->delete_time,
         ]);
 
-        $query->andFilterWhere(['like', 'author', $this->author])
-            ->andFilterWhere(['like', 'message', $this->message])
-            ->andFilterWhere(['like', 'remark', $this->remark]);
+        $query->andFilterWhere(['like', 'path', $this->path]);
 
         return $dataProvider;
     }

@@ -1,0 +1,19 @@
+@startuml
+start
+partition (arrangeFixed) {
+    :获取 visitCount;
+    :获取上一次排班情况;
+    :计算此次排班结束的时间;
+    if (有上一次的排班情况) then (yes)
+        :计算下一次的排班情况;
+
+    else (no)
+        :计算第一个排班的时间点;
+        if (第一个排班超过当前需要排班的时间) then (yes)
+            stop
+        endif
+
+    endif
+}
+stop
+@enduml

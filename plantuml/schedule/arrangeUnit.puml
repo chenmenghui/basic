@@ -8,18 +8,25 @@ start
 if ($bEnableArrange) then (yes)
     :\MaintenanceGenericBaseService::isInSameBuildingWithLastUnit;
     while ($this->aScheduleSet as $aSet)
-        :添加日志;
+        :记录日志;
         :统计排班次数？;
-        :根据类型排班;
+        fork
+        :\MaintenanceGenericService::_arrangeFixed;
+        fork again
+        :\MaintenanceGenericService::_arrangeEvenly;
+        fork again
+        :手工安排;
+        fork again
+        :其他待定;
+        end fork
         :验证排盘次数;
-    endwhile
+    end while
     :清除当前时间之前的排班结果;
     :验证排班结果;
-    :;
 else (no)
     -[dashed]->
 endif
-:保存排班结果;
+:保存排班结果至缓存;
 :保存日志;
 stop
 @enduml

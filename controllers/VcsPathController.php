@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\VcsRecord;
-use app\models\VcsRecordLogic;
+use app\models\VcsPath;
+use app\models\VcsPathLogic;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VcsRecordController implements the CRUD actions for VcsRecord model.
+ * VcsPathController implements the CRUD actions for VcsPath model.
  */
-class VcsRecordController extends Controller
+class VcsPathController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Lists all VcsRecord models.
+     * Lists all VcsPath models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VcsRecordLogic();
+        $searchModel = new VcsPathLogic();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Displays a single VcsRecord model.
+     * Displays a single VcsPath model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Creates a new VcsRecord model.
+     * Creates a new VcsPath model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new VcsRecord();
+        $model = new VcsPath();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Updates an existing VcsRecord model.
+     * Updates an existing VcsPath model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Deletes an existing VcsRecord model.
+     * Deletes an existing VcsPath model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class VcsRecordController extends Controller
     }
 
     /**
-     * Finds the VcsRecord model based on its primary key value.
+     * Finds the VcsPath model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VcsRecord the loaded model
+     * @return VcsPath the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = VcsRecord::findOne($id)) !== null) {
+        if (($model = VcsPath::findOne($id)) !== null) {
             return $model;
         }
 
