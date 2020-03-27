@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $update_time
  * @property string|null $delete_time
  * @property string $remark
- * @property array $path vcs_path
+ * @property VcsPath $path
  */
 class VcsRecord extends Base
 {
