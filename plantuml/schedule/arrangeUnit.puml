@@ -6,9 +6,20 @@ start
 :\MaintenanceGenericBaseService::_initScheduleSet;
 :\MaintenanceGenericService::_handleUnitSavedScheduleData;
 if ($bEnableArrange) then (yes)
-
-else
-
+    :\MaintenanceGenericBaseService::isInSameBuildingWithLastUnit;
+    while ($this->aScheduleSet as $aSet)
+        :添加日志;
+        :统计排班次数？;
+        :根据类型排班;
+        :验证排盘次数;
+    endwhile
+    :清除当前时间之前的排班结果;
+    :验证排班结果;
+    :;
+else (no)
+    -[dashed]->
 endif
+:保存排班结果;
+:保存日志;
 stop
 @enduml
